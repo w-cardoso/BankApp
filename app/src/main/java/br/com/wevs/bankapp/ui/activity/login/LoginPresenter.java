@@ -3,7 +3,6 @@ package br.com.wevs.bankapp.ui.activity.login;
 import br.com.wevs.bankapp.model.Login;
 import br.com.wevs.bankapp.model.LoginResponse;
 import br.com.wevs.bankapp.service.NetworkClient;
-import br.com.wevs.bankapp.service.NetworkInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,7 +26,7 @@ public class LoginPresenter implements LoginContract.LoginPresenterInterface {
         loginResponse.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-
+                LoginResponse user = response.body();
                 mvi.displayMovies(response.body().getUserAccount());
 
             }

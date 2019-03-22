@@ -96,7 +96,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
                     boolean formIsValid = validAllFields();
                     if (formIsValid) {
                         validateUser(edtUser.getText().toString(), edtPassword.getText().toString());
-                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                     }
                 }
             });
@@ -115,6 +114,9 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
 
     @Override
     public void displayMovies(UserAccount user) {
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
 
     }
 

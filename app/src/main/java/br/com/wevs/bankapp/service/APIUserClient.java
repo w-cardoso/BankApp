@@ -9,7 +9,7 @@ import retrofit2.http.POST;
 
 public interface APIUserClient {
 
-    @POST("/API/Tokens")
+    @POST("login")
     Call<LoginResponse> login(@Body Login login);
 
 

@@ -12,7 +12,7 @@ public class NetworkClient {
     private NetworkClient() {
     }
 
-    public static final String BASE_URL = "http://dividazero.azurewebsites.net/";
+    public static final String BASE_URL = "https://bank-app-test.herokuapp.com/api/";
 
 
     public static APIUserClient getAPIUserClient(){
