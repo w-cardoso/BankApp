@@ -55,8 +55,6 @@ public class ListStatementsAdapter extends RecyclerView.Adapter<ListStatementsAd
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-
         DateFormat formatBR = new SimpleDateFormat("dd/mm/yyyy");
         return formatBR.format(date);
     }
