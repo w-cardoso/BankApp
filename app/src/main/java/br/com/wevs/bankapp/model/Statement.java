@@ -1,12 +1,31 @@
 package br.com.wevs.bankapp.model;
 
-public class Statement {
-    private String title;
-    private String description;
-    private String date;
-    private String value;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public Statement(String title, String description, String date, String value) {
+import java.io.Serializable;
+
+public class Statement {
+    @SerializedName("title")
+    @Expose
+    private String title;
+
+    @SerializedName("desc")
+    @Expose
+    private String description;
+
+    @SerializedName("date")
+    @Expose
+    private String date;
+
+    @SerializedName("value")
+    @Expose
+    private double value;
+
+    public Statement() {
+    }
+
+    public Statement(String title, String description, String date, double value) {
         this.title = title;
         this.description = description;
         this.date = date;
@@ -37,11 +56,11 @@ public class Statement {
         this.date = date;
     }
 
-    public String getValue() {
+    public double getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(double value) {
         this.value = value;
     }
 }

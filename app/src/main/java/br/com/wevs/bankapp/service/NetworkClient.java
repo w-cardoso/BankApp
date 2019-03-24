@@ -19,4 +19,8 @@ public class NetworkClient {
         return RetrofitClient.getClient(BASE_URL).create(APIUserClient.class);
     }
 
+    public static APIListStatement getAPIListStatement(){
+        return RetrofitClient.getClient(BASE_URL).create(APIListStatement.class);
+    }
+
 }

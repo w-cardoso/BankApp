@@ -8,7 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import br.com.wevs.bankapp.R;
 import br.com.wevs.bankapp.model.Statement;
@@ -18,12 +24,12 @@ public class ListStatementsAdapter extends RecyclerView.Adapter<ListStatementsAd
     private final List<Statement> statements;
     private final Context context;
 
-    public ListStatementsAdapter(Context context, List<Statement> statements) {
+    public ListStatementsAdapter(List<Statement> statements, Context context) {
         this.context = context;
         this.statements = statements;
     }
 
-    @NonNull
+
     @Override
     public StatementsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View createView = LayoutInflater.from(context)
@@ -32,8 +38,33 @@ public class ListStatementsAdapter extends RecyclerView.Adapter<ListStatementsAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StatementsViewHolder notaViewHolder, int position) {
-        Statement statement = statements.get(position);
+    public void onBindViewHolder(@NonNull StatementsViewHolder statementsItem, int position) {
+        statementsItem.title.setText(statements.get(position).getTitle());
+        String dateFormated = transformDateBr(position);
+        statementsItem.date.setText(dateFormated);
+        statementsItem.description.setText(statements.get(position).getDescription());
+        String valueFormated = transformInCoin(position);
+        statementsItem.value.setText(String.valueOf(valueFormated));
+    }
+
+    private String transformDateBr(int position) {
+        DateFormat formatUS = new SimpleDateFormat("yyyy-mm-dd");
+        Date date = null;
+        try {
+            date = formatUS.parse(statements.get(position).getDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        DateFormat formatBR = new SimpleDateFormat("dd/mm/yyyy");
+        return formatBR.format(date);
+    }
+
+    private String transformInCoin(int position) {
+        Double value = statements.get(position).getValue();
+        Locale coinBr = new Locale("pt", "BR");
+        return NumberFormat.getCurrencyInstance(coinBr).format(value);
     }
 
     @Override
