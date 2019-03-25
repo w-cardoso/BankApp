@@ -34,7 +34,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="José da Silva Teste"
                     android:textColor="#FFF"
                     android:textSize="26sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +41,7 @@
 
 
                 <ImageView
-                    android:id="@+id/logout"
+                    android:id="@+id/home_logout"
                     android:layout_width="wrap_content"
                     android:layout_height="35dp"
                     android:layout_marginStart="8dp"
@@ -75,7 +74,6 @@
                     android:id="@+id/home_txt_account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2050 / 01.111222-4"
                     android:textColor="#FFF"
                     android:textSize="26sp"
                     app:layout_constraintStart_toStartOf="@+id/home_txt_title_account"
@@ -96,7 +94,6 @@
                     android:id="@+id/home_txt_balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="R$1.000,00"
                     android:textColor="#FFF"
                     android:textSize="26sp"
                     app:layout_constraintStart_toStartOf="@+id/home_txt_title_balance"

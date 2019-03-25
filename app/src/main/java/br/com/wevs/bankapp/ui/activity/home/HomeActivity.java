@@ -1,9 +1,12 @@
 package br.com.wevs.bankapp.ui.activity.home;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +18,7 @@ import java.util.Locale;
 import br.com.wevs.bankapp.R;
 import br.com.wevs.bankapp.model.Statement;
 import br.com.wevs.bankapp.model.UserAccount;
+import br.com.wevs.bankapp.ui.activity.login.LoginActivity;
 import br.com.wevs.bankapp.ui.recyclerview.adapter.ListStatementsAdapter;
 
 public class HomeActivity extends AppCompatActivity implements HomeContract.HomeViewInterface {
@@ -24,6 +28,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
     private ListStatementsAdapter adapter;
     private RecyclerView rcv;
     private TextView txtName, txtAccount, txtBalance;
+    private ImageView img_logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +39,18 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
         fillFields(user);
         setUpsMvp();
         getListStatements(user);
+        logoutApp();
 
+    }
 
+    private void logoutApp() {
+        img_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
     }
 
     private void getListStatements(UserAccount user) {
@@ -68,13 +83,14 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
         txtName = findViewById(R.id.home_txt_name);
         txtAccount = findViewById(R.id.home_txt_account);
         txtBalance = findViewById(R.id.home_txt_balance);
+        img_logout = findViewById(R.id.home_logout);
     }
 
 
 
     @Override
-    public void showToast(String s) {
-        Toast.makeText(this, "äsasasa", Toast.LENGTH_LONG);
+    public void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG);
     }
 
     @Override
@@ -84,10 +100,8 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
     }
 
 
-
-
     @Override
-    public void displayError(String s) {
-
+    public void displayError(String error) {
+        showToast(error);
     }
 }
