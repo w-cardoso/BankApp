@@ -27,7 +27,7 @@ public class LoginPresenter implements LoginContract.LoginPresenterInterface {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse user = response.body();
-                mvi.displayMovies(response.body().getUserAccount());
+                mvi.validateUser(response.body().getUserAccount());
 
             }
 

@@ -15,6 +15,7 @@ import java.util.List;
 import br.com.wevs.bankapp.R;
 import br.com.wevs.bankapp.model.UserAccount;
 import br.com.wevs.bankapp.ui.activity.home.HomeActivity;
+import br.com.wevs.bankapp.util.SecurePreferences;
 import br.com.wevs.bankapp.validator.EmailValidator;
 import br.com.wevs.bankapp.validator.PasswordValidator;
 import br.com.wevs.bankapp.validator.Validator;
@@ -23,21 +24,36 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
 
     private final List<Validator> validators = new ArrayList<>();
     private LoginPresenter loginPresenter;
-    private String TAG = "MainActivity";
-    private RecyclerView.Adapter adapter;
-
     private Button btnLogin;
     private EditText edtUser;
     private EditText edtPassword;
+    private SecurePreferences preferences;
+    private String username, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initializeFields();
+        initializeSharedPreferences();
+        verifyPreferences(username, password);
+
 
     }
 
+    private void verifyPreferences(String username, String password) {
+        if (!(username == null) || !(password == null)) {
+            edtUser.setText(username);
+            edtPassword.setText(password);
+        }
+    }
+
+    private void initializeSharedPreferences() {
+        preferences = new SecurePreferences(this, "user-info",
+                "userInformation", true);
+        username = preferences.getString("username");
+        password = preferences.getString("password");
+    }
 
 
     private void initializeFields() {
@@ -46,8 +62,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
         setUpFieldPassword();
         setUpButtonLogin();
     }
-
-
 
 
     private void setUpFieldEmail() {
@@ -90,15 +104,17 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
 
     private void setUpButtonLogin() {
         btnLogin = findViewById(R.id.login_btn);
-            btnLogin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    boolean formIsValid = validAllFields();
-                    if (formIsValid) {
-                        validateUser(edtUser.getText().toString(), edtPassword.getText().toString());
-                    }
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean formIsValid = validAllFields();
+                if (formIsValid) {
+                    preferences.put("username", edtUser.getText().toString());
+                    preferences.put("password", edtPassword.getText().toString());
+                    validateUser(edtUser.getText().toString(), edtPassword.getText().toString());
                 }
-            });
+            }
+        });
 
     }
 
@@ -113,7 +129,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     }
 
     @Override
-    public void displayMovies(UserAccount user) {
+    public void validateUser(UserAccount user) {
         Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra("user", user);
         startActivity(intent);

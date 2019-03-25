@@ -35,7 +35,7 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:textColor="#FFF"
-                    android:textSize="26sp"
+                    android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,7 +64,7 @@
                     android:layout_marginTop="16dp"
                     android:text="Conta"
                     android:textColor="#FFF"
-                    android:textSize="12sp"
+                    android:textSize="10sp"
                     app:layout_constraintEnd_toEndOf="@+id/home_txt_name"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/home_txt_name"
@@ -75,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#FFF"
-                    android:textSize="26sp"
+                    android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="@+id/home_txt_title_account"
                     app:layout_constraintTop_toBottomOf="@+id/home_txt_title_account" />
 
@@ -86,7 +86,7 @@
                     android:layout_marginTop="16dp"
                     android:text="Saldo"
                     android:textColor="#FFF"
-                    android:textSize="12sp"
+                    android:textSize="10sp"
                     app:layout_constraintStart_toStartOf="@+id/home_txt_account"
                     app:layout_constraintTop_toBottomOf="@+id/home_txt_account" />
 
@@ -95,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#FFF"
-                    android:textSize="26sp"
+                    android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="@+id/home_txt_title_balance"
                     app:layout_constraintTop_toBottomOf="@+id/home_txt_title_balance" />
 

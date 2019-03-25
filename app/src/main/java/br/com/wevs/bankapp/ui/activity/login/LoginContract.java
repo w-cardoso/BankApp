@@ -7,7 +7,7 @@ public interface LoginContract {
 
     interface LoginViewInterface{
         void showToast(String s);
-        void displayMovies(UserAccount user);
+        void validateUser(UserAccount user);
         void displayError(String s);
     }
 
