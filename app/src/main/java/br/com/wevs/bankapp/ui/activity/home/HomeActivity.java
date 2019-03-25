@@ -9,11 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
+
 import br.com.wevs.bankapp.R;
 import br.com.wevs.bankapp.model.Statement;
 import br.com.wevs.bankapp.model.UserAccount;
@@ -40,7 +42,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
         setUpsMvp();
         getListStatements(user);
         logoutApp();
-        shimmerFrameLayout.startShimmer();
+
 
     }
 
@@ -55,7 +57,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
     }
 
     private void getListStatements(UserAccount user) {
-
+        shimmerFrameLayout.startShimmer();
         homePresenter.getStatementList(user.getUserId());
     }
 
@@ -69,7 +71,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
 
     private void fillFields(UserAccount user) {
         txtName.setText(user.getName());
-        txtAccount.setText(user.getBankAccount()+" / "+user.getAgency());
+        txtAccount.setText(user.getBankAccount() + " / " + user.getAgency());
         String valueBr = transformInCoin(user);
         txtBalance.setText(valueBr);
     }
@@ -90,7 +92,6 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
     }
 
 
-
     @Override
     public void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG);
@@ -98,9 +99,9 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
 
     @Override
     public void displayStatement(List<Statement> statement) {
-
-
-        adapter = new ListStatementsAdapter(statement,this);
+        shimmerFrameLayout.stopShimmer();
+        shimmerFrameLayout.setVisibility(View.GONE);
+        adapter = new ListStatementsAdapter(statement, this);
         rcv.setAdapter(adapter);
     }
 
