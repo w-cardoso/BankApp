@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     private EditText edtPassword;
     private SecurePreferences preferences;
     private String username, password;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,12 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
         setUpFieldEmail();
         setUpFieldPassword();
         setUpButtonLogin();
+        setUpProgressBar();
+
+    }
+
+    private void setUpProgressBar() {
+        progressBar = findViewById(R.id.login_pgb);
     }
 
 
@@ -107,6 +115,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
             public void onClick(View v) {
                 boolean formIsValid = validAllFields();
                 if (formIsValid) {
+                    btnLogin.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.VISIBLE);
                     preferences.put("username", edtUser.getText().toString());
                     preferences.put("password", edtPassword.getText().toString());
                     validateUser(edtUser.getText().toString(), edtPassword.getText().toString());
@@ -130,6 +140,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     public void validateUser(UserAccount user) {
         Intent intent = new Intent(this, HomeActivity.class);
         intent.putExtra("user", user);
+        progressBar.setVisibility(View.GONE);
+        btnLogin.setVisibility(View.VISIBLE);
         startActivity(intent);
 
     }
