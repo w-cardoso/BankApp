@@ -9,8 +9,7 @@ import retrofit2.Response;
 
 public class LoginPresenter implements LoginContract.LoginPresenterInterface {
 
-    LoginContract.LoginViewInterface mvi;
-    private String TAG = "MainPresenter";
+    private LoginContract.LoginViewInterface mvi;
 
     public LoginPresenter(LoginContract.LoginViewInterface mvi) {
         this.mvi = mvi;
@@ -26,7 +25,7 @@ public class LoginPresenter implements LoginContract.LoginPresenterInterface {
         loginResponse.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                LoginResponse user = response.body();
+
                 mvi.validateUser(response.body().getUserAccount());
 
             }

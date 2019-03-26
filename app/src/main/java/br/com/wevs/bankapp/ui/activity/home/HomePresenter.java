@@ -2,16 +2,16 @@ package br.com.wevs.bankapp.ui.activity.home;
 
 
 import br.com.wevs.bankapp.model.ListStatementResponse;
-import br.com.wevs.bankapp.model.Statement;
+import br.com.wevs.bankapp.model.LoginResponse;
 import br.com.wevs.bankapp.service.NetworkClient;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 
 public class HomePresenter implements HomeContract.HomePresenterInterface {
 
-    HomeContract.HomeViewInterface mvi;
-    private String TAG = "HomePresenter";
+    private HomeContract.HomeViewInterface mvi;
 
     public HomePresenter(HomeContract.HomeViewInterface mvi) {
         this.mvi = mvi;
@@ -19,20 +19,34 @@ public class HomePresenter implements HomeContract.HomePresenterInterface {
 
     @Override
     public void getStatementList(int id) {
-        Call<ListStatementResponse> loginResponse = NetworkClient.getAPIListStatement().getMovies(id);
-        loginResponse.enqueue(new Callback<ListStatementResponse>() {
-
-
-            @Override
-            public void onResponse(Call<ListStatementResponse> call, Response<ListStatementResponse> response) {
-                mvi.displayStatement(response.body().getStatementList());
-            }
-
-            @Override
-            public void onFailure(Call<ListStatementResponse> call, Throwable t) {
-
-            }
-        });
-
+        getObservable(id).subscribeWith(getObserver());
     }
+
+    public Observable<ListStatementResponse> getObservable(int id) {
+        return NetworkClient.getAPIListStatement()
+                .getMovies(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public DisposableObserver<ListStatementResponse> getObserver() {
+        return new DisposableObserver<ListStatementResponse>() {
+            @Override
+            public void onNext(ListStatementResponse statementResponse) {
+                mvi.displayStatement(statementResponse.getStatementList());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mvi.displayError(e.toString());
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+    }
+
+
 }

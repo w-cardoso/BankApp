@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -132,7 +133,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
 
 
     @Override
-    public void showToast(String s) {
+    public void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG);
 
     }
 
@@ -147,7 +149,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     }
 
     @Override
-    public void displayError(String s) {
+    public void displayError(String error) {
+        showToast(error);
 
     }
 }
