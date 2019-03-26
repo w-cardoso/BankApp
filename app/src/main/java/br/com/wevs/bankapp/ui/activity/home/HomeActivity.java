@@ -2,6 +2,7 @@ package br.com.wevs.bankapp.ui.activity.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -98,11 +99,18 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.Home
     }
 
     @Override
-    public void displayStatement(List<Statement> statement) {
-        shimmerFrameLayout.stopShimmer();
-        shimmerFrameLayout.setVisibility(View.GONE);
-        adapter = new ListStatementsAdapter(statement, this);
-        rcv.setAdapter(adapter);
+    public void displayStatement(final List<Statement> statement) {
+        Handler handler = new Handler();
+           handler.postDelayed(new Runnable() {
+               @Override
+               public void run() {
+                   shimmerFrameLayout.stopShimmer();
+                   shimmerFrameLayout.setVisibility(View.GONE);
+                   adapter = new ListStatementsAdapter(statement, HomeActivity.this);
+                   rcv.setAdapter(adapter);
+               }
+           },1500);
+
     }
 
 
